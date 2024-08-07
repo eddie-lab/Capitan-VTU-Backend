@@ -5,7 +5,7 @@ const transactionSchema = new mongoose.Schema({
 
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref : userModel
+        ref : "Users",
     },
     status : {
         type: String,
@@ -45,4 +45,4 @@ const transactionSchema = new mongoose.Schema({
 transactionSchema.index({ reference: 1 }); // Index for sorting or querying by 'reference' in ascending order
 transactionSchema.index({ status: 1 }); // Index for sorting or querying by 'status'
 
-module.exports = mongoose.model('Transaction', transactionSchema)
+module.exports = mongoose.model('Transactions', transactionSchema)
