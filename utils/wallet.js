@@ -5,8 +5,8 @@ const user = require('../models/user')
 
 exports.debitWallet = async (payload)=>{
     try {
-        const {userID, amount, source} = payload
-        if(!userID || !amount) {
+        const {userId, amount, source} = payload
+        if(!userId|| !amount) {
             return {
                 status: 'failed',
                 message: 'UserID and amount are undefined '
@@ -19,7 +19,7 @@ exports.debitWallet = async (payload)=>{
             }
         }
         //Check if wallet exist 
-        const WalletExist = await Wallet.findOne({user:userID})
+        const WalletExist = await Wallet.findOne({user:userId})
         if (!WalletExist) {
             return {
                 status: 'failed',
@@ -43,7 +43,7 @@ exports.debitWallet = async (payload)=>{
         )
         //wallet audit 
         const walletAudit = {
-            user: userID,
+            user: userId,
             transactionType: "DEBIT",
             transactionAmount: Number(amount),
             source: source.toLowerCase(),
@@ -72,8 +72,8 @@ exports.debitWallet = async (payload)=>{
 
 exports.creditWallet = async(payload)=>{
     try {
-        const { userID,amount,source} = payload
-        if (!userID || !amount){
+        const { userId,amount,source} = payload
+        if (!userId || !amount){
             return {
                 status : "failed",
                 message : "UserID and amount are undefined"
@@ -86,7 +86,7 @@ exports.creditWallet = async(payload)=>{
                 message : "please enter value greater than 0 "
             }
         }
-        const walletExist = await wallet.findOne({user:userID})
+        const walletExist = await wallet.findOne({user:userId})
         if(!walletExist) {
             return {
                 status : "failed",
@@ -104,7 +104,7 @@ exports.creditWallet = async(payload)=>{
         )
         //wallet audit
         const walletAudit = {
-            user: userID,
+            user: userId,
             transactionType: "CREDIT",
             transactionAmount: Number(amount),
             source: source.toLowerCase(),
@@ -129,8 +129,8 @@ exports.creditWallet = async(payload)=>{
 
 exports.BalanceSufficient = async()=>{
     try{
-        const {userID,amount} = payload
-        if(!userID || amount) {
+        const {userId,amount} = payload
+        if(!userId || amount) {
             return {
                 status: 'Failed',
                 message: 'UserId and amount is undefined'
@@ -144,7 +144,7 @@ exports.BalanceSufficient = async()=>{
         }
 
         //does wallet exist
-        const walletExist = await wallet.findOne({ user: userID });
+        const walletExist = await wallet.findOne({ user: userId });
         if (!walletExist) {
         return {
             status: "failed",
