@@ -14,7 +14,7 @@ const handleResponse = async (req,res,payload,statusCode)=>{
         res.setHeader("Pragma", "no-store");
         res.setHeader("X-XSS-Protection", "1; mode=block");
 
-        returnres.status(statusCode).json({
+        return res.status(statusCode).json({
             data: payload,
             status : statusCode < 400 ? "success" :"error"
         })

@@ -1,4 +1,3 @@
-const response = require('./response')
 const logger = require('../utils/logger');
 const handleResponse = require('./response');
 
